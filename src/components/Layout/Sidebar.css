@@ -74,7 +74,7 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Mantiene logo izq y flecha der */
+  justify-content: space-between; 
   transition: all 0.3s ease;
   width: 100%;
 }
@@ -167,6 +167,53 @@
   display: none;
 }
 
+.sidebar-search {
+  display: flex;
+  align-items: center;
+  background-color: #FFFFFF;
+  border-radius: var(--radio-botones, 50px);
+  padding: 0.4rem 0.8rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(228, 92, 140, 0.2);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+  transition: border-color 0.3s ease;
+}
+
+.sidebar-search:focus-within {
+  border-color: var(--rosa-principal, #E45C8C);
+}
+
+.sidebar-search input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  padding: 0.4rem;
+  color: var(--texto-principal, #2B1C22);
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.sidebar-search input::placeholder {
+  color: var(--texto-claro, #A3969B);
+}
+
+.sidebar-search button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--rosa-principal, #E45C8C);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem;
+  transition: transform 0.2s ease;
+}
+
+.sidebar-search button:hover {
+  transform: scale(1.1);
+}
+
 @media (max-width: 768px) {
   .sidebar {
     position: fixed;
@@ -192,4 +239,7 @@
     z-index: 15;
     backdrop-filter: blur(2px); 
   }
+
+  
+
 }

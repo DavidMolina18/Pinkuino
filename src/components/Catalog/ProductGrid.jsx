@@ -2,60 +2,118 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../services/supabase';
 import { ProductCard } from './ProductCard';
-import './ProductGrid.css'; // Importamos su propio diseño de inmediato
+import { ProductSkeleton } from './ProductSkeleton';
+import './ProductGrid.css';
 
-export const ProductGrid = ({ marcaId, categoriaId }) => {
+export const ProductGrid = ({ marcaId, categoriaId, busqueda }) => {
   const [productos, setProductos] = useState([]);
-  const [cargando, setCargando] = useState(true);
+  const [cargando, setCargando] = useState(false);
+  const [productoSeleccionado, setProductoSeleccionado] = useState(null);
+
+  const [orden, setOrden] = useState('defecto');
 
   useEffect(() => {
-    // Si no hay filtros seleccionados, no hacemos nada
-    if (!marcaId || !categoriaId) return;
+    if (!marcaId && !categoriaId && !busqueda) return;
 
     const obtenerProductos = async () => {
       setCargando(true);
-      
-      // Magia de Supabase: Buscamos productos que coincidan con ambos IDs
-      // Y además pedimos el nombre de la marca para mostrarlo en la tarjeta
-      const { data, error } = await supabase
-        .from('productos')
-        .select(`
-          *,
-          marcas (nombre)
-        `)
-        .eq('marca_id', marcaId)
-        .eq('categoria_id', categoriaId);
+      let peticionSupabase = supabase.from('productos').select(`*, marcas (nombre)`);
+
+      if (busqueda) {
+        peticionSupabase = peticionSupabase.ilike('nombre_producto', `%${busqueda}%`);
+      } else {
+        peticionSupabase = peticionSupabase.eq('marca_id', marcaId).eq('categoria_id', categoriaId);
+      }
+
+      const { data, error } = await peticionSupabase;
 
       if (error) {
         console.error("Error al cargar productos:", error);
       } else {
-        // Formateamos un poco los datos para que la tarjeta los lea fácil
         const productosFormateados = data.map(prod => ({
           ...prod,
-          marca_nombre: prod.marcas.nombre
+          marca_nombre: prod.marcas?.nombre || 'Marca desconocida'
         }));
         setProductos(productosFormateados);
       }
-      
       setCargando(false);
     };
 
     obtenerProductos();
-  }, [marcaId, categoriaId]); // Este useEffect se vuelve a ejecutar cada vez que los filtros cambian
+  }, [marcaId, categoriaId, busqueda]);
 
   if (cargando) {
-    return <div className="grid-message">Buscando productos...</div>;
+    return (
+      <div className="product-grid">
+        {[1, 2, 3, 4, 5, 6].map((numero) => (
+          <ProductSkeleton key={numero} />
+        ))}
+      </div>
+    );
   }
 
   if (productos.length === 0) {
     return <div className="grid-message">No hay productos disponibles en esta categoría por ahora.</div>;
   }
 
+  const productosOrdenados = [...productos].sort((a, b) => {
+    if (orden === 'menor') return a.precio - b.precio;
+    if (orden === 'mayor') return b.precio - a.precio;
+    return 0; // Si es 'defecto', los deja como llegaron de la base de datos
+  });
+
   return (
-    <div className="product-grid">
-      {productos.map(producto => (
-        <ProductCard key={producto.id} producto={producto} />
-      ))}
-    </div>
+    <>
+    {/* 3. NUEVO: Controles superiores minimalistas */}
+      <div className="catalog-header">
+        <span className="results-count">{productos.length} productos</span>
+        
+        <select 
+          className="sort-select" 
+          value={orden} 
+          onChange={(e) => setOrden(e.target.value)}
+        >
+          <option value="defecto">Recomendados</option>
+          <option value="menor">Precio: Menor a Mayor</option>
+          <option value="mayor">Precio: Mayor a Menor</option>
+        </select>
+      </div>
+
+      <div className="product-grid">
+        {productosOrdenados.map(producto => (
+          <ProductCard 
+            key={producto.id} 
+            producto={producto} 
+            onClick={() => setProductoSeleccionado(producto)} // Al hacer clic, abre el modal
+          />
+        ))}
+      </div>
+
+      {/* 2. ESTRUCTURA DEL MODAL (Solo se muestra si hay un producto seleccionado) */}
+      {productoSeleccionado && (
+        <div className="modal-overlay" onClick={() => setProductoSeleccionado(null)}>
+          {/* e.stopPropagation() evita que al hacer clic dentro del modal se cierre solo */}
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close-btn" onClick={() => setProductoSeleccionado(null)}>×</button>
+            
+            <div className="modal-image-container">
+              <img src={productoSeleccionado.imagen_url} alt={productoSeleccionado.nombre_producto} />
+            </div>
+            
+            <div className="modal-info">
+              <span className="modal-brand">{productoSeleccionado.marca_nombre}</span>
+              <h2 className="modal-name">{productoSeleccionado.nombre_producto}</h2>
+              <p className="modal-price">
+                {new Intl.NumberFormat('es-CO', {
+                  style: 'currency',
+                  currency: 'COP',
+                  maximumFractionDigits: 0
+                }).format(productoSeleccionado.precio)}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };

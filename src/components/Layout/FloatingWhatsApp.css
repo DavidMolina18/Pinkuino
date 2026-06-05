@@ -1,0 +1,41 @@
+/* src/components/Layout/FloatingWhatsApp.css */
+
+.floating-wpp-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background-color: var(--rosa-principal); 
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); 
+  cursor: pointer;
+  z-index: 50; 
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+}
+
+
+.floating-wpp-btn:hover {
+  transform: scale(1.08) translateY(-4px); 
+  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.45);
+}
+
+/* Efecto de compresión al presionarlo */
+.floating-wpp-btn:active {
+  transform: scale(0.95) translateY(-2px);
+}
+
+/* Adaptación ergonómica para pantallas de celulares */
+@media (max-width: 768px) {
+  .floating-wpp-btn {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 55px;
+    height: 55px;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+  }
+}

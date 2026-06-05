@@ -1,0 +1,45 @@
+/* src/components/Layout/Footer.css */
+
+.main-footer {
+  margin-top: auto; 
+  padding-top: 5rem;
+  padding: 3rem 1rem 2rem 1rem;
+  border-top: 1px solid rgba(228, 92, 140, 0.15); 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.social-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.social-icon {
+  color: var(--texto-secundario, #7A6A70);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  padding: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--bg-principal, #FFFCFD);
+  width: 40px;
+  height: 40px;
+}
+
+/* Efecto al pasar el mouse: se vuelve rosa y salta un poquito */
+.social-icon:hover {
+  color: var(--rosa-principal, #E45C8C);
+  transform: translateY(-4px);
+  background-color: var(--rosa-pastel, #FCEEF3);
+}
+
+.copyright-text {
+  font-size: 0.85rem;
+  color: var(--texto-claro, #A3969B);
+  text-align: center;
+  margin: 0;
+  letter-spacing: 0.5px;
+}

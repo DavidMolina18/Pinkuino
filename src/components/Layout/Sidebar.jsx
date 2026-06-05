@@ -2,13 +2,21 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../../services/supabase';
 import './Sidebar.css'
 
-export const Sidebar = ({ isOpen, onSelectCategory }) => {
+export const Sidebar = ({ isOpen, onSelectCategory, onSearch }) => {
   const [marcas, setMarcas] = useState([]);
   
   // Nuevos estados para el menú desplegable
   const [marcaExpandida, setMarcaExpandida] = useState(null);
   const [categorias, setCategorias] = useState([]);
   const [cargandoCategorias, setCargandoCategorias] = useState(false);
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault(); // Evita que la página se recargue
+    const palabra = e.target.busqueda.value.trim();
+    if (palabra) {
+      onSearch(palabra);
+    }
+  };
 
   useEffect(() => {
     const obtenerMarcas = async () => {
@@ -70,6 +78,22 @@ export const Sidebar = ({ isOpen, onSelectCategory }) => {
         />
         <h1 className="sidebar-title-brand">PINKÜINO</h1>
       </div>
+
+      <form className="sidebar-search" onSubmit={handleSearchSubmit}>
+        <input 
+          type="text" 
+          name="busqueda" 
+          placeholder="Buscar un producto..." 
+          autoComplete="off"
+        />
+        <button type="submit" aria-label="Buscar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+        </form>
+      
       <h2 className="sidebar-subtitle">Nuestras Marcas</h2>
       <div className="brand-list">
         {marcas.map((marca) => (
