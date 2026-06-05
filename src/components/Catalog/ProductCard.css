@@ -1,0 +1,67 @@
+/* src/components/Catalog/ProductCard.css */
+
+.product-card {
+  background-color: var(--bg-tarjetas, #FFFFFF);
+  border-radius: var(--radio-tarjetas, 16px);
+  overflow: hidden; 
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--sombra-suave);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--sombra-hover);
+}
+
+.product-image-container {
+  width: 100%;
+  aspect-ratio: 1 / 1; 
+  background-color: var(--bg-principal); 
+  overflow: hidden;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.05); 
+}
+
+.product-info {
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex-grow: 1; 
+}
+
+.product-brand {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--texto-secundario, #7A6A70);
+  font-weight: 600;
+}
+
+.product-name {
+  font-size: 1rem;
+  color: var(--texto-principal, #2B1C22);
+  margin: 0;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.product-price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--texto-principal, #2B1C22);
+  margin: 0;
+  margin-top: 0.5rem;
+}
+

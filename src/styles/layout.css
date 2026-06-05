@@ -1,0 +1,24 @@
+/* src/styles/layout.css */
+body{
+  margin: 0;
+}
+
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg-principal, #FFFCFD);
+  font-family: var(--fuente-principal, 'Inter', sans-serif);
+  color: var(--texto-principal, #2B1C22);
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+}
+
+/* Solo las reglas globales de celular se quedan aquí */
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+}

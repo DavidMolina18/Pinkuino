@@ -1,0 +1,17 @@
+/* src/components/Catalog/ProductGrid.css */
+
+.product-grid {
+  display: grid;
+  /* La magia responsiva: crea tantas columnas de mínimo 240px como quepan en la pantalla */
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 2rem; /* Espacio entre cada tarjeta */
+  padding-top: 1rem;
+}
+
+.grid-message {
+  text-align: center;
+  color: var(--texto-secundario, #7A6A70);
+  font-size: 1.1rem;
+  margin-top: 3rem;
+  font-style: italic;
+}
