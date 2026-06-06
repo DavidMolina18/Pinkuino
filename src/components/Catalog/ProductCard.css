@@ -66,3 +66,9 @@
   margin-top: 0.5rem;
 }
 
+.desde-text {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--texto-claro, #A3969B);
+  text-transform: lowercase;
+}

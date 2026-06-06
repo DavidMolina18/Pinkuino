@@ -9,8 +9,13 @@ export const ProductGrid = ({ marcaId, categoriaId, busqueda }) => {
   const [productos, setProductos] = useState([]);
   const [cargando, setCargando] = useState(false);
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
-
   const [orden, setOrden] = useState('defecto');
+  const [tamanoElegido, setTamanoElegido] = useState('regular');
+
+  const abrirModal = (producto) => {
+    setTamanoElegido('regular');
+    setProductoSeleccionado(producto);
+  };
 
   useEffect(() => {
     if (!marcaId && !categoriaId && !busqueda) return;
@@ -84,7 +89,7 @@ export const ProductGrid = ({ marcaId, categoriaId, busqueda }) => {
           <ProductCard 
             key={producto.id} 
             producto={producto} 
-            onClick={() => setProductoSeleccionado(producto)} // Al hacer clic, abre el modal
+            onClick={() => abrirModal(producto)} // Al hacer clic, abre el modal
           />
         ))}
       </div>
@@ -92,7 +97,6 @@ export const ProductGrid = ({ marcaId, categoriaId, busqueda }) => {
       {/* 2. ESTRUCTURA DEL MODAL (Solo se muestra si hay un producto seleccionado) */}
       {productoSeleccionado && (
         <div className="modal-overlay" onClick={() => setProductoSeleccionado(null)}>
-          {/* e.stopPropagation() evita que al hacer clic dentro del modal se cierre solo */}
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <button className="modal-close-btn" onClick={() => setProductoSeleccionado(null)}>×</button>
             
@@ -103,12 +107,36 @@ export const ProductGrid = ({ marcaId, categoriaId, busqueda }) => {
             <div className="modal-info">
               <span className="modal-brand">{productoSeleccionado.marca_nombre}</span>
               <h2 className="modal-name">{productoSeleccionado.nombre_producto}</h2>
+              
+             
+              {productoSeleccionado.precio_mini && (
+                <div className="size-selector-container">
+                  <button 
+                    className={`size-btn ${tamanoElegido === 'mini' ? 'active' : ''}`}
+                    onClick={() => setTamanoElegido('mini')}
+                  >
+                    Mini
+                  </button>
+                  <button 
+                    className={`size-btn ${tamanoElegido === 'regular' ? 'active' : ''}`}
+                    onClick={() => setTamanoElegido('regular')}
+                  >
+                    Regular
+                  </button>
+                </div>
+              )}
+
+              {/* El precio cambia dinámicamente según el botón activo */}
               <p className="modal-price">
                 {new Intl.NumberFormat('es-CO', {
                   style: 'currency',
                   currency: 'COP',
                   maximumFractionDigits: 0
-                }).format(productoSeleccionado.precio)}
+                }).format(
+                  tamanoElegido === 'mini' 
+                    ? productoSeleccionado.precio_mini 
+                    : productoSeleccionado.precio
+                )}
               </p>
             </div>
           </div>

@@ -143,6 +143,41 @@
   margin-top: 0.2rem;
 }
 
+/* Botones de selección de tamaño en el Modal */
+.size-selector-container {
+  display: flex;
+  gap: 0.8rem;
+  margin: 0.6rem 0;
+}
+
+.size-btn {
+  flex: 1;
+  background-color: #FDF9FA;
+  border: 1px solid rgba(228, 92, 140, 0.15);
+  padding: 0.5rem;
+  border-radius: var(--radio-botones, 50px);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--texto-secundario, #7A6A70);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.size-btn:hover {
+  border-color: var(--rosa-principal, #E45C8C);
+  color: var(--rosa-principal, #E45C8C);
+}
+
+/* Estado activo cuando la clienta lo selecciona */
+.size-btn.active {
+  background-color: var(--rosa-principal, #E45C8C);
+  border-color: var(--rosa-principal, #E45C8C);
+  color: #FFFFFF;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(228, 92, 140, 0.2);
+}
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
