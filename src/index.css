@@ -1,0 +1,21 @@
+
+::-webkit-scrollbar {
+  width: 8px;  
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-principal, #FFFCFD); 
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--rosa-principal, #E45C8C); 
+  border-radius: 10px; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D84A7A;
+}
+
+* {
+  scrollbar-width: thin; /* Barra delgada */
+  scrollbar-color: var(--rosa-principal, #E45C8C) var(--bg-principal, #FFFCFD); 
+}

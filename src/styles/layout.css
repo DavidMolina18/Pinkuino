@@ -1,6 +1,7 @@
 /* src/styles/layout.css */
 body{
   margin: 0;
+
 }
 
 .app-container {
@@ -16,6 +17,13 @@ body{
   padding: 2rem;display: flex;
   flex-direction: column;
 }
+
+::selection {
+  background-color: var(--rosa-pastel, #FCEEF3); /* Tu fondo rosado sutil */
+  color: var(--rosa-principal, #E45C8C); /* El texto resalta en tu color principal */
+}
+
+
 
 /* Solo las reglas globales de celular se quedan aquí */
 @media (max-width: 768px) {
