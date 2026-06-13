@@ -1,7 +1,9 @@
 // src/components/Layout/Header.jsx
 import './Header.css'
 
-export const Header = ({ toggleSidebar }) => {
+
+
+export const Header = ({ toggleSidebar, onLogoClick }) => {
   return (
     <header className="mobile-header">
       {/* Botón del menú hamburguesa */}
@@ -14,11 +16,12 @@ export const Header = ({ toggleSidebar }) => {
       </button>
       
       {/* Contenedor central para el Logo y el Título */}
-      <div className="header-brand">   
+      <div className="header-brand" onClick={onLogoClick}>   
         <img 
           src="https://fninpfidganvxofuqbeg.supabase.co/storage/v1/object/public/imagenes/logos/LOGO-PINKUINO.jpeg" 
           alt="Logo Pinküino" 
           className="header-logo" 
+          style={{cursor:'pointer'}}
         />
         <h1 className="header-title">PINKÜINO</h1>
       </div>

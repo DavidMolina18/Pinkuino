@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../../services/supabase';
 import './Sidebar.css'
 
-export const Sidebar = ({ isOpen, onSelectCategory, onSearch }) => {
+export const Sidebar = ({ isOpen, onSelectCategory, onSearch, onLogoCick}) => {
   const [marcas, setMarcas] = useState([]);
   
   // Nuevos estados para el menú desplegable
@@ -70,11 +70,12 @@ export const Sidebar = ({ isOpen, onSelectCategory, onSearch }) => {
 
   return (
     <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
-      <div className="sidebar-brand">
+      <div className="sidebar-brand" onClick={onLogoCick} style={{cursor :'pointer'}}>
         <img 
           src="https://fninpfidganvxofuqbeg.supabase.co/storage/v1/object/public/imagenes/logos/LOGO-PINKUINO.jpeg" /* Asegúrate de usar la misma ruta que en tu Header */
           alt="Logo Pinküino" 
           className="sidebar-logo" 
+          
         />
         <h1 className="sidebar-title-brand">PINKÜINO</h1>
       </div>

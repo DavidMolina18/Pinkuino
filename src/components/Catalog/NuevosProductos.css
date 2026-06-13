@@ -1,0 +1,156 @@
+/* --- Contenedor Principal --- */
+.seccion-nuevos {
+  width: 100%;
+  min-width: 0; 
+  margin: 2rem 0;
+  overflow: hidden; 
+}
+
+.encabezado-nuevos h2 {
+  font-size: 1.5rem;
+  color: var(--texto-principal, #2B1C22);
+  margin-bottom: 0.2rem;
+  padding-left: 1rem;
+}
+
+.encabezado-nuevos p {
+  font-size: 0.9rem;
+  color: var(--texto-claro, #A3969B);
+  margin-bottom: 1.5rem;
+  padding-left: 1rem;
+}
+
+/* --- Contenedor Relativo para las flechas --- */
+.carrusel-contenedor {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* --- Scroll Horizontal --- */
+.scroll-horizontal {
+  display: flex;
+  gap: 1.2rem;
+  padding: 0 1rem 1.5rem 1rem; /* Espaciado interno */
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  width: 100%;
+  
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.scroll-horizontal::-webkit-scrollbar {
+  display: none;
+}
+
+/* --- Tarjeta Especial --- */
+.tarjeta-nuevo {
+  flex: 0 0 75%; 
+  max-width: 250px; 
+  scroll-snap-align: start;
+  position: relative;
+  background-color: #FFFFFF;
+  border-radius: 35px 35px 20px 20px;
+  padding: 0.8rem;
+  box-shadow: 0 10px 25px rgba(228, 92, 140, 0.15), 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+/* (El CSS de la imagen, título y badge se mantiene igual) */
+.badge-nuevo {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: var(--rosa-principal, #E45C8C);
+  color: #FFFFFF;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  z-index: 2;
+  box-shadow: 0 4px 8px rgba(228, 92, 140, 0.4);
+}
+
+.imagen-nuevo-contenedor {
+  width: 100%;
+  height: 220px;
+  border-radius: 25px 25px 15px 15px;
+  overflow: hidden;
+  background-color: #F9F9F9;
+  margin-bottom: 1rem;
+}
+
+.imagen-nuevo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info-nuevo {
+  text-align: center;
+  padding: 0 0.5rem 0.5rem 0.5rem;
+}
+
+.titulo-nuevo {
+  font-size: 1rem;
+  color: var(--texto-principal, #2B1C22);
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.precio-nuevo {
+  font-size: 1.1rem;
+  color: var(--rosa-principal, #E45C8C);
+  font-weight: 700;
+  margin: 0;
+}
+
+/* --- Botones de Flechas (Ocultos en móvil por defecto) --- */
+.flecha-carrusel {
+  display: none;
+  position: absolute;
+  top: 45%;
+  transform: translateY(-50%);
+  background-color: #FFFFFF;
+  color: var(--rosa-principal, #E45C8C);
+  border: 1px solid rgba(228, 92, 140, 0.2);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.flecha-carrusel:hover {
+  background-color: var(--rosa-principal, #E45C8C);
+  color: #FFFFFF;
+}
+
+.flecha-carrusel.izquierda {
+  left: 5px;
+}
+
+.flecha-carrusel.derecha {
+  right: 5px;
+}
+
+@media (min-width: 768px) {
+  .flecha-carrusel {
+    display: flex; 
+  
+
+  .tarjeta-nuevo {
+    flex: 0 0 30%; 
+  }
+}
+}

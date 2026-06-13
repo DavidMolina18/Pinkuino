@@ -4,6 +4,7 @@ import { Header } from './components/Layout/Header';
 import { ProductGrid } from './components/Catalog/ProductGrid';
 import { FloatingWhatsApp } from './components/Layout/FloatingWhatsApp';
 import { Footer } from "./components/Layout/Footer";
+import { NuevosProductos } from "./components/Catalog/NuevosProductos"
 
 import './styles/variables.css';
 import './styles/layout.css';
@@ -13,10 +14,7 @@ import './styles/layout.css';
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  
-  // 1. Añadimos el estado para la palabra buscada
-  const [terminoBusqueda, setTerminoBusqueda] = useState('');
-  
+  const [terminoBusqueda, setTerminoBusqueda] = useState(''); 
   const [filtroActual, setFiltroActual] = useState({
     marcaId: null,
     categoriaId: null
@@ -37,15 +35,22 @@ function App() {
     if (window.innerWidth <= 768) setIsSidebarOpen(false);
   };
 
+  const handleVolverInicio = () => {
+    setFiltroActual({ marcaId: null, categoriaId: null });
+    setTerminoBusqueda(''); 
+    if (window.innerWidth <= 768) setIsSidebarOpen(false);
+  };
+
   return (
     <div className="app-container">
-      <Header toggleSidebar={toggleSidebar} />
+      <Header toggleSidebar={toggleSidebar} onLogoClick={handleVolverInicio} />
       
       
       <Sidebar 
         isOpen={isSidebarOpen} 
         onSelectCategory={handleSeleccionCategoria} 
         onSearch={handleBuscar} 
+        onLogoCick={handleVolverInicio}
       />
       
       {isSidebarOpen && (
@@ -54,10 +59,15 @@ function App() {
 
       <main className="main-content">
         {!filtroActual.categoriaId && !terminoBusqueda ? (
-          <div className="welcome-message">
-            <h1>Descubre tus favoritos</h1>
-            <p>Selecciona una marca o busca un producto para empezar.</p>
-          </div>
+          <>
+            <div className="welcome-message">
+              <h1>Descubre tus favoritos</h1>
+              <p>Selecciona una marca o busca un producto para empezar.</p>
+            </div>
+            
+          
+            <NuevosProductos />
+          </>
         ) : (
           
           <ProductGrid 
