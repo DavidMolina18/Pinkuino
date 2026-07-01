@@ -1,4 +1,3 @@
-// src/components/Catalog/ProductGrid.jsx
 import { useState, useEffect } from 'react';
 import { supabase } from '../../services/supabase';
 import { ProductCard } from './ProductCard';
@@ -64,12 +63,12 @@ export const ProductGrid = ({ marcaId, categoriaId, busqueda }) => {
   const productosOrdenados = [...productos].sort((a, b) => {
     if (orden === 'menor') return a.precio - b.precio;
     if (orden === 'mayor') return b.precio - a.precio;
-    return 0; // Si es 'defecto', los deja como llegaron de la base de datos
+    return 0; 
   });
 
   return (
     <>
-    {/* 3. NUEVO: Controles superiores minimalistas */}
+   
       <div className="catalog-header">
         <span className="results-count">{productos.length} productos</span>
         
@@ -94,7 +93,6 @@ export const ProductGrid = ({ marcaId, categoriaId, busqueda }) => {
         ))}
       </div>
 
-      {/* 2. ESTRUCTURA DEL MODAL (Solo se muestra si hay un producto seleccionado) */}
       {productoSeleccionado && (
         <div className="modal-overlay" onClick={() => setProductoSeleccionado(null)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -126,7 +124,6 @@ export const ProductGrid = ({ marcaId, categoriaId, busqueda }) => {
                 </div>
               )}
 
-              {/* El precio cambia dinámicamente según el botón activo */}
               <p className="modal-price">
                 {new Intl.NumberFormat('es-CO', {
                   style: 'currency',

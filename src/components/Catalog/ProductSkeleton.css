@@ -1,5 +1,3 @@
-/* src/components/Catalog/ProductSkeleton.css */
-
 .product-skeleton {
   background-color: var(--bg-tarjetas, #FFFFFF);
   border-radius: var(--radio-tarjetas, 16px);
@@ -9,12 +7,12 @@
   box-shadow: var(--sombra-suave);
 }
 
-/* Base de la animación infinita */
+
 .skeleton-image, 
 .skeleton-brand, 
 .skeleton-name, 
 .skeleton-price {
-  background-color: #F5EFF2; /* Un gris-rosa muy limpio y premium */
+  background-color: #F5EFF2; 
   animation: pulse 1.5s infinite ease-in-out;
 }
 
@@ -27,11 +25,9 @@
   padding: 1.2rem;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem; /* Espacio entre las líneas falsas de texto */
-  flex-grow: 1;
+  gap: 0.8rem; 
 }
 
-/* Tamaños proporcionales para simular el texto real */
 .skeleton-brand {
   width: 40%;
   height: 12px;
@@ -51,7 +47,6 @@
   margin-top: 0.5rem;
 }
 
-/* La llave mágica: la animación de opacidad */
 @keyframes pulse {
   0% {
     opacity: 0.5;

@@ -1,33 +1,15 @@
 :root {
-  /* =========================================
-     PALETA PINKÜINO COSMETICS
-  ========================================= */
-  
-  /* Color Principal (El tuyo) */
   --rosa-principal: #E45C8C; 
-  
-  /* Tonos Complementarios para Interfaz */
-  --rosa-pastel: #FCEEF3;    /* Un rosa casi blanco para el fondo del panel lateral */
-  --rosa-hover: #F6D5E0;     /* Para cuando pases el mouse por encima de una marca */
-  
-  /* Fondos y Superficies (Clean Girl Aesthetic) */
-  --bg-principal: #FFFCFD;   /* Blanco con un micro-toque cálido, no lastima la vista */
-  --bg-tarjetas: #FFFFFF;    /* Blanco puro para las tarjetas de productos */
-  
-  /* Textos (Evitamos el negro puro para más elegancia) */
-  --texto-principal: #2B1C22; /* Gris muy oscuro con subtono cálido para títulos */
-  --texto-secundario: #7A6A70; /* Gris medio para precios o subtítulos */
-  --texto-claro: #A3969B;     /* Para el texto de "Buscar..." en la lupa */
-
-  /* =========================================
-     TIPOGRAFÍAS Y ESTRUCTURA
-  ========================================= */
-  
-  --fuente-principal: 'Inter', system-ui, sans-serif; /* Limpia y muy legible */
-  --radio-tarjetas: 16px;     /* Bordes bien redondeados y amigables */
-  --radio-botones: 50px;      /* Botones estilo píldora (muy modernos) */
-  
-  /* Sombras sutiles para profundidad sin ensuciar */
+  --rosa-pastel: #FCEEF3;   
+  --rosa-hover: #F6D5E0;     
+  --bg-principal: #FFFCFD;   
+  --bg-tarjetas: #FFFFFF;   
+  --texto-principal: #2B1C22; 
+  --texto-secundario: #7A6A70;
+  --texto-claro: #A3969B;     
+  --fuente-principal: 'Inter', system-ui, sans-serif; 
+  --radio-tarjetas: 16px;     
+  --radio-botones: 50px;     
   --sombra-suave: 0 8px 16px rgba(228, 92, 140, 0.08); 
   --sombra-hover: 0 12px 24px rgba(228, 92, 140, 0.15);
 }

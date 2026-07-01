@@ -1,11 +1,9 @@
-// src/components/Layout/Footer.jsx
 import './Footer.css';
 
 export const Footer = () => {
   return (
     <footer className="main-footer">
       <div className="social-links">
-        {/* Enlace a Instagram */}
         <a 
           href="https://www.instagram.com/pinkuino.cosmetics?igsh=MWUwbzg4NDR5Nm9iMg%3D%3D&utm_source=qr" 
           target="_blank" 

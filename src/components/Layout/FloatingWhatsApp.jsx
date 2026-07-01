@@ -1,11 +1,9 @@
-// src/components/Layout/FloatingWhatsApp.jsx
 import './FloatingWhatsApp.css';
 
 export const FloatingWhatsApp = () => {
  
   const numeroTelefono = "573117191847"; 
 
-  // 2. El mensaje predeterminado con la personalidad de la marca
   const mensajePredeterminado = "¡Hola! Me encantaría hacer un pedido.";
 
   const handleWhatsAppClick = () => {
@@ -13,8 +11,6 @@ export const FloatingWhatsApp = () => {
     const textoCodificado = encodeURIComponent(mensajePredeterminado);
     const urlAPI = `https://wa.me/${numeroTelefono}?text=${textoCodificado}`;
 
-    // window.open con '_blank' asegura que se abra en una pestaña nueva 
-    // para que la clienta no pierda la página del catálogo de fondo.
     window.open(urlAPI, '_blank', 'noopener,noreferrer');
   };
 

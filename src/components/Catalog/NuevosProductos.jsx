@@ -6,7 +6,6 @@ export const NuevosProductos = () => {
   const [productos, setProductos] = useState([]);
   const [cargando, setCargando] = useState(true);
   
-  // Referencia para controlar el scroll del contenedor
   const carruselRef = useRef(null);
 
   useEffect(() => {
@@ -30,7 +29,6 @@ export const NuevosProductos = () => {
     obtenerNuevosProductos();
   }, []);
 
-  // Función para mover el scroll al hacer clic en las flechas (Para PC)
   const desplazar = (direccion) => {
     if (carruselRef.current) {
       const cantidad = direccion === 'izquierda' ? -350 : 350;
@@ -48,7 +46,6 @@ export const NuevosProductos = () => {
       </div>
 
       <div className="carrusel-contenedor">
-        {/* Botón Izquierda (Solo visible en PC) */}
         <button 
           className="flecha-carrusel izquierda" 
           onClick={() => desplazar('izquierda')}
@@ -81,7 +78,6 @@ export const NuevosProductos = () => {
           ))}
         </div>
 
-        {/* Botón Derecha (Solo visible en PC) */}
         <button 
           className="flecha-carrusel derecha" 
           onClick={() => desplazar('derecha')}

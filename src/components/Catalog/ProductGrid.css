@@ -1,4 +1,3 @@
-/* src/components/Catalog/ProductGrid.css */
 
 .product-grid {
   display: grid;
@@ -50,9 +49,7 @@
   color: var(--rosa-principal, #E45C8C);
 }
 
-/* =========================================
-   ESTILOS DE LA VISTA EMERGENTE (MODAL)
-========================================= */
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -143,7 +140,6 @@
   margin-top: 0.2rem;
 }
 
-/* Botones de selección de tamaño en el Modal */
 .size-selector-container {
   display: flex;
   gap: 0.8rem;
@@ -169,7 +165,6 @@
   color: var(--rosa-principal, #E45C8C);
 }
 
-/* Estado activo cuando la clienta lo selecciona */
 .size-btn.active {
   background-color: var(--rosa-principal, #E45C8C);
   border-color: var(--rosa-principal, #E45C8C);

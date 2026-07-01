@@ -11,7 +11,7 @@ export const Sidebar = ({ isOpen, onSelectCategory, onSearch, onLogoCick}) => {
   const [cargandoCategorias, setCargandoCategorias] = useState(false);
 
   const handleSearchSubmit = (e) => {
-    e.preventDefault(); // Evita que la página se recargue
+    e.preventDefault(); 
     const palabra = e.target.busqueda.value.trim();
     if (palabra) {
       onSearch(palabra);
@@ -30,32 +30,29 @@ export const Sidebar = ({ isOpen, onSelectCategory, onSearch, onLogoCick}) => {
     obtenerMarcas();
   }, []);
 
-  // Función que se ejecuta al hacer clic en una marca
+
   const handleClickMarca = async (marcaId) => {
-    // Si la marca ya está abierta, la cerramos y terminamos
+
     if (marcaExpandida === marcaId) {
       setMarcaExpandida(null);
       return;
     }
 
-    // Si es una marca nueva, la abrimos y mostramos estado de carga
+
     setMarcaExpandida(marcaId);
     setCargandoCategorias(true);
 
-    // Magia de Supabase: Buscamos en la tabla productos las categorías asociadas a esta marca
+
     const { data, error } = await supabase
       .from('productos')
       .select('categorias(id, nombre)')
       .eq('marca_id', marcaId);
 
     if (!error && data) {
-      // Como pueden haber 10 correctores, la categoría "Rostro" saldría 10 veces.
-      // Aquí filtramos para guardar solo las categorías únicas.
       const categoriasUnicas = [];
       const idsVistos = new Set();
       
       data.forEach(item => {
-        // Asegurarnos de que el producto tenga categoría y no la hayamos agregado ya
         if (item.categorias && !idsVistos.has(item.categorias.id)) {
           idsVistos.add(item.categorias.id);
           categoriasUnicas.push(item.categorias);
@@ -109,13 +106,11 @@ export const Sidebar = ({ isOpen, onSelectCategory, onSearch, onLogoCick}) => {
               ) : (
                 <span className="brand-name">{marca.nombre}</span>
               )}
-              {/* Pequeña flecha indicadora */}
               <span className="arrow-icon">
                 {marcaExpandida === marca.id ? '▲' : '▼'}
               </span>
             </button>
 
-            {/* Submenú de categorías (Solo se muestra si la marca está expandida) */}
             {marcaExpandida === marca.id && (
               <div className="categories-dropdown">
                 {cargandoCategorias ? (
@@ -125,7 +120,6 @@ export const Sidebar = ({ isOpen, onSelectCategory, onSearch, onLogoCick}) => {
                   <button 
                     key={cat.id} 
                     className="category-btn"
-                    // Al hacer clic, enviamos el ID de la marca y de la categoría a App.jsx
                     onClick={() => onSelectCategory(marca.id, cat.id)}
                   >
                     {cat.nombre}

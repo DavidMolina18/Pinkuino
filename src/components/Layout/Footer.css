@@ -1,4 +1,3 @@
-/* src/components/Layout/Footer.css */
 
 .main-footer {
   margin-top: auto; 
@@ -29,7 +28,6 @@
   height: 40px;
 }
 
-/* Efecto al pasar el mouse: se vuelve rosa y salta un poquito */
 .social-icon:hover {
   color: var(--rosa-principal, #E45C8C);
   transform: translateY(-4px);
