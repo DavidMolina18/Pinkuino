@@ -8,7 +8,35 @@ Local SQL and application code are delivered, not applied to a remote project. *
 2. In Supabase Auth, disable **Allow new users to sign up**, review enabled providers, and manually provision the single administrator email/password. Remove or disable any other existing users, including anonymous-auth users; they also receive the authenticated database role. This is an operational prerequisite, not a UI security control.
 3. Confirm an existing `imagenes` bucket and review its allowed MIME types/size limits (UI limit: 5 MiB). Review `supabase/admin-security.sql`, then execute it yourself in the SQL editor. It sets that bucket public. It fails transactionally if the bucket does not exist. Do not paste privileged credentials into this application.
 4. Configure `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` using the public anon/publishable client key only. These values are bundled for the browser. Never use a service-role/secret key. Reuse the existing client, then run `npm.cmd install`, `npm.cmd run dev` locally.
-5. Visit `/` for the public catalog, `/login` to sign in, and `/admin` to manage products. Configure the eventual host to serve `index.html` for non-asset SPA paths including `/login` and `/admin`; hosting provider is not known, so no provider-specific config is supplied.
+5. Visit `/` for the public catalog, `/login` to sign in, and `/admin` to manage products. For Netlify delivery, follow the build and SPA fallback contract below.
+
+## Netlify build and SPA fallback
+
+Use the repository root as Netlify's base directory. Root `netlify.toml` declares these settings:
+
+| Setting | Value |
+| --- | --- |
+| Build command | `npm run build` |
+| Publish directory | `dist` |
+| SPA rewrite | `/*` to `/index.html`, HTTP `200`, not forced |
+
+The existing TOML rewrite was already valid. The proven local artifact-delivery defect was the root `_redirects` file: Vite does not copy that file from the repository root. It now lives at `public/_redirects`, containing `/* /index.html 200` followed by a newline. With the unchanged Vite defaults, public assets are copied into `dist`, so the fallback also accompanies a manual upload. No application, router, or Vite configuration change is needed.
+
+Direct requests and refreshes at `/login` and `/admin` need the SPA entry HTML before the browser router can run. The nonforced rewrite preserves existing static files, including JavaScript, CSS, and images. HTTP fallback does not grant authentication or bypass the protected admin route.
+
+### Build-time environment variables
+
+In the Netlify UI, configure `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` for the build context being deployed. Use only the public browser client key, never a service-role or secret key. Vite bundles these values at build time: trigger a new build and deploy after changing them; changing the UI settings alone cannot update an existing bundle.
+
+Missing or incorrect Supabase configuration can break browser initialization or authentication after HTML delivery. It does not explain a hosting-layer HTTP 404. The active deployment, its settings, and the remote root cause have not been inspected or proven by this local fix.
+
+### Local verification and manual upload fallback
+
+1. Run `npm.cmd test` before building; the Node regression suite checks source placement, both fallback definitions, and Vite's resolved public-copy settings without depending on `dist` or loading environment files.
+2. Run `npm.cmd run build` (the Windows equivalent of `npm run build`). Confirm `dist/index.html`, exact equality of `dist/_redirects` with `public/_redirects`, and the asset files referenced by the HTML. Also run `npm.cmd run lint` and `git diff --check`; report failures rather than treating build success as complete verification.
+3. If a manual Netlify upload is needed, build locally with the intended build-time variables and upload the generated `dist` directory, not the repository root or `public` alone. It must contain `index.html`, `_redirects`, and the generated assets; do not upload environment files.
+
+Local tests and artifact inspection do not prove live Netlify responses. After a separately authorized deployment, verify direct requests and refreshes at `/login` and `/admin`, plus existing asset delivery. No deployment or live URL probe is performed as part of this local correction.
 
 ## Security boundaries
 
